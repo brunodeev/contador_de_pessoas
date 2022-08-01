@@ -19,23 +19,36 @@ class MyApp extends StatelessWidget {
   }
 }
 
-void decrement() {
-  print("decrement");
-}
-
-void increment() {
-  print("increment");
-}
-
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int count = 0;
+
+  void decrement() {
+    setState(() {
+      count--;
+    });
+    print(count);
+  }
+
+  void increment() {
+    setState(() {
+      count++;
+    });
+    print(count);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.red,
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(
           image: AssetImage('assets/images/bg.png'),
           fit: BoxFit.cover,
@@ -49,9 +62,9 @@ class HomePage extends StatelessWidget {
                     fontSize: 40,
                     color: Colors.white,
                     fontWeight: FontWeight.w600)),
-            const Padding(
+            Padding(
               padding: EdgeInsets.all(45),
-              child: Text("0",
+              child: Text("$count",
                   style: TextStyle(
                     fontSize: 100,
                     color: Colors.white,
